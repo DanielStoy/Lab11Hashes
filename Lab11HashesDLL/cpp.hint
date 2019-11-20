@@ -1,0 +1,2 @@
+#define LAB11HASHESDLL_API __declspec(dllexport)
+#define LAB11HASHESDLL_API __declspec(dllimport)
