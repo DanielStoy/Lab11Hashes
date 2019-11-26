@@ -10,6 +10,8 @@ int main()
 	myTable.addItem(30, 1);
 	int length = myTable.getLength();
 	hashNode* myNode = myTable.getVal(30);
+	myNode = myTable.getVal(30);
+	length = myTable.getLength();
 	cout << "hi";
 }
 

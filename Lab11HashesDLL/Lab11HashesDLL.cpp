@@ -19,8 +19,15 @@ hashTable::hashTable(int sizeOfTable) {
 	}
 }
 
+//DO NOT MANUALLY INVOKE
 hashTable::~hashTable() {
-
+	for (int i = 0; i < tableSize; i++) {
+		if (table[i] != NULL) {
+			table[i] = NULL;
+			delete table[i];
+		}
+	}
+	delete[]table;
 }
 
 void hashTable::addItem(int key,int val) {
@@ -55,7 +62,16 @@ hashNode * hashTable::getVal(int key) {
 
 int hashTable::removeItem(int key) {
 	int spot = hash(key);
-	return 0;
+	int num = 0;
+	while (table[spot] != NULL && table[spot]->key != key) {
+		spot = hash(spot + 1);
+	}
+	if (table[spot] == NULL)
+		return 0;
+	num = table[spot]->value;
+	delete table[spot];
+	table[spot] = NULL;
+	return num;
 }
 
 int hashTable::hash(int key) {
