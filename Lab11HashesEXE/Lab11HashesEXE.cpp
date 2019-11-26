@@ -2,10 +2,15 @@
 //
 
 #include <iostream>
+#include "..///Lab11HashesDLL/Lab11HashesDLL.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	hashTable myTable(100);
+	myTable.addItem(30, 1);
+	int length = myTable.getLength();
+	hashNode* myNode = myTable.getVal(30);
+	cout << "hi";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

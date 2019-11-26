@@ -9,14 +9,30 @@
 #else
 #define LAB11HASHESDLL_API __declspec(dllimport)
 #endif
+#include <string>
+using namespace std;
 
-// This class is exported from the dll
-class LAB11HASHESDLL_API CLab11HashesDLL {
+
+class LAB11HASHESDLL_API hashNode {
 public:
-	CLab11HashesDLL(void);
-	// TODO: add your methods here.
+	int key;
+	int value;
+	hashNode(int Key, int Val);
+	hashNode();
+private:
 };
 
-extern LAB11HASHESDLL_API int nLab11HashesDLL;
 
-LAB11HASHESDLL_API int fnLab11HashesDLL(void);
+class LAB11HASHESDLL_API hashTable {
+public:
+	hashTable(int sizeOfTable);
+	~hashTable();
+	int getLength();
+	hashNode * getVal(int key);
+	int removeItem(int key);
+	void addItem(int key, int val);
+	int tableSize = 100;
+private:
+	int hash(int key); //Returns a hash of the table
+	hashNode **table;
+};

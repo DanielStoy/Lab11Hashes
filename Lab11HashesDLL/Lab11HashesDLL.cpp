@@ -1,21 +1,63 @@
-// Lab11HashesDLL.cpp : Defines the exported functions for the DLL.
-//
-
 #include "framework.h"
 #include "Lab11HashesDLL.h"
 
-
-// This is an example of an exported variable
-LAB11HASHESDLL_API int nLab11HashesDLL=0;
-
-// This is an example of an exported function.
-LAB11HASHESDLL_API int fnLab11HashesDLL(void)
-{
-    return 0;
+hashNode::hashNode(int Key, int Val) {
+	key = Key;
+	value = Val;
 }
 
-// This is the constructor of a class that has been exported.
-CLab11HashesDLL::CLab11HashesDLL()
-{
-    return;
+hashNode::hashNode() {
+	key = -1;
+	value = 0;
+}
+
+hashTable::hashTable(int sizeOfTable) {
+	tableSize = sizeOfTable;
+	table = new hashNode * [tableSize];
+	for (int i = 0; i < tableSize; i++) {
+		table[i] = NULL;
+	}
+}
+
+hashTable::~hashTable() {
+
+}
+
+void hashTable::addItem(int key,int val) {
+	int spot = hash(key);
+	while (table[spot] != NULL && table[spot]->key != key)
+		spot = hash(spot + 1);
+	if (table[spot] != NULL) {
+		delete table[spot];
+	}
+	table[spot] = new hashNode(key, val);
+}
+
+int hashTable::getLength() {
+	int count = 0;
+	for (int i = 0; i < tableSize; i++) {
+		if (table[i] != NULL)
+			count++;
+	}
+	return count;
+}
+
+hashNode * hashTable::getVal(int key) {
+	int spot = hash(key);
+	while (table[spot] != NULL && table[spot]->key != key) {
+		spot = hash(spot + 1);
+	}
+	if (table[spot] == NULL) {
+		return NULL;
+	}
+	return table[spot];
+}
+
+int hashTable::removeItem(int key) {
+	int spot = hash(key);
+	return 0;
+}
+
+int hashTable::hash(int key) {
+	return key % tableSize;
 }
