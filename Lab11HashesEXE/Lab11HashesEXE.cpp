@@ -18,9 +18,11 @@ int main()
 	int size = 0;
 	cout << "Run Time Tests? Press 1 to run" << endl;
 	cin >> size;
-	if (size == 1)
+	while(size == 1)
 	{
 		size = Task3();
+		cout << "To run again press 1" << endl;
+		cin >> size;
 	}
 
 	hashTable myTable(100);
