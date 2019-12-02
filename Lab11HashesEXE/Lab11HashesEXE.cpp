@@ -2,10 +2,27 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <chrono>
+#include <string>
+#include <sstream>
 #include "..///Lab11HashesDLL/Lab11HashesDLL.h"
+
+typedef std::chrono::high_resolution_clock Clock;
+
+int Task3();
 
 int main()
 {
+	int size = 0;
+	cout << "Run Time Tests? Press 1 to run" << endl;
+	cin >> size;
+	if (size == 1)
+	{
+		size = Task3();
+	}
+
 	hashTable myTable(100);
 	myTable.addItem(30, 1);
 	int length = myTable.getLength();
@@ -15,7 +32,7 @@ int main()
 	length = myTable.getLength();
 	cout << "hi" << endl;
 	
-	int size = -1;
+	size = -1;
 	while (size < 0)
 	{
 		cout << "Choose the size of the hash" << endl;
@@ -94,13 +111,37 @@ int main()
 	}
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int Task3()
+{
+	int amount;
+	float sizeAdjuectment;
+	std::string myString;
+	cout << "Enter Amount" << endl;
+	cin >> amount;
+	cout << "Enter the adjustment value in digit form I.E. 150 -> 1.5" << endl;
+	cin >> myString;
+	stringstream(myString) >> sizeAdjuectment;
+	float heapAmount = (float)amount * sizeAdjuectment;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	std::vector<int> num;
+	for (int i = 0; i < amount; i++)
+	{
+		num.push_back(rand() % amount);
+	}
+
+	Clock::time_point in1;
+	Clock::time_point in2;
+
+	cout << "Insert items into said quque" << endl;
+	in1 = Clock::now();
+	hashTable testHash(int(heapAmount + 0.5));
+	for (int i = 0; i < amount; i++)
+	{
+		testHash.addItem(i, num[i]);
+	}
+	in2 = Clock::now();
+	cout << testHash.getLength() << " items were added to test hash" << endl;
+	cout << "Hash insert took " << chrono::duration_cast<chrono::nanoseconds>(in2 - in1).count() << " nanoseconds" << endl;
+
+	return testHash.getLength();
+}
