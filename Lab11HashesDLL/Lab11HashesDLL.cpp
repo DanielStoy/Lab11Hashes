@@ -11,6 +11,15 @@ hashNode::hashNode() {
 	value = 0;
 }
 
+//bool operator==(const hashNode lhs, const hashNode rhs)
+//{
+//	if (lhs.value == rhs.value)
+//	{
+//		return true;
+//	}
+//	return false;
+//}
+
 hashTable::hashTable(int sizeOfTable) {
 	tableSize = sizeOfTable;
 	table = new hashNode * [tableSize];
