@@ -23,8 +23,8 @@ hashTable::hashTable(int sizeOfTable) {
 hashTable::~hashTable() {
 	for (int i = 0; i < tableSize; i++) {
 		if (table[i] != NULL) {
-			table[i] = NULL;
 			delete table[i];
+			table[i] = NULL;
 		}
 	}
 	delete[]table;
