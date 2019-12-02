@@ -11,6 +11,15 @@ hashNode::hashNode() {
 	value = 0;
 }
 
+//bool operator==(const hashNode lhs, const hashNode rhs)
+//{
+//	if (lhs.value == rhs.value)
+//	{
+//		return true;
+//	}
+//	return false;
+//}
+
 hashTable::hashTable(int sizeOfTable) {
 	tableSize = sizeOfTable;
 	table = new hashNode * [tableSize];
@@ -51,6 +60,10 @@ int hashTable::getLength() {
 
 hashNode * hashTable::getVal(int key) {
 	int spot = hash(key);
+	if (spot == -1)
+	{
+		return NULL;
+	}
 	while (table[spot] != NULL && table[spot]->key != key) {
 		spot = hash(spot + 1);
 	}
@@ -62,6 +75,10 @@ hashNode * hashTable::getVal(int key) {
 
 int hashTable::removeItem(int key) {
 	int spot = hash(key);
+	if (spot == -1)
+	{
+		return -1;
+	}
 	int num = 0;
 	while (table[spot] != NULL && table[spot]->key != key) {
 		spot = hash(spot + 1);
@@ -75,5 +92,9 @@ int hashTable::removeItem(int key) {
 }
 
 int hashTable::hash(int key) {
+	if (key < 0 || key > tableSize)
+	{
+		return -1;
+	}
 	return key % tableSize;
 }
